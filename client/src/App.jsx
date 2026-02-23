@@ -3,6 +3,7 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import InvoiceForm from './components/InvoiceForm';
 import InvoiceList from './components/InvoiceList';
+import Footer from './components/Footer';
 import { isAuthenticated } from './utils/auth';
 
 function App() {
@@ -33,14 +34,14 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         onLogout={handleLogout} 
       />
       
-      <main className="w-full">
+      <main className="w-full flex-grow">
         {activeTab === 'create' && (
           <InvoiceForm onInvoiceCreated={handleInvoiceCreated} />
         )}
@@ -48,6 +49,8 @@ function App() {
           <InvoiceList key={refreshList} />
         )}
       </main>
+      
+      <Footer />
     </div>
   );
 }
