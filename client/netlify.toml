@@ -1,6 +1,6 @@
 [build]
-  publish = "dist/frontend/browser"
-  command = "ng build --configuration production"
+  publish = "dist/client/browser"
+  command = "vite build"
 [[redirects]]
   from = "/*"
   to = "/index.html"
