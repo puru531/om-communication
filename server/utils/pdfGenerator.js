@@ -6,8 +6,7 @@ function formatCurrency(n) {
 
 module.exports = function generateInvoicePDF(invoice, res) {
   const doc = new PDFDocument({ size: "A4", margin: 30 });
-  doc.registerFont("Roboto", "./fonts/Roboto-Regular.ttf");
-  doc.font("Roboto");
+  doc.font("Helvetica");
 
   // Pipe PDF output to response
   doc.pipe(res);
@@ -17,9 +16,9 @@ module.exports = function generateInvoicePDF(invoice, res) {
   doc
     .fontSize(10)
     .fillColor("#6b7280")
-    .text("123 Market Road, City, PIN - 123456", 30, 60)
-    .text("Mobile: +91 98765 43210 | Email: omcommunication@gmail.com", 30, 75)
-    .text("GST No: 22ABCDE1234F1Z5", 30, 90);
+    .text("Thana road Laxmipur, Jamui, Bihar, 811312", 30, 60)
+    .text("Mobile: +91 75438 66809 | Email: ", 30, 75)
+    .text("GST No: ", 30, 90);
 
   // Invoice title and number
   doc
@@ -52,7 +51,7 @@ module.exports = function generateInvoicePDF(invoice, res) {
     .fillColor("#374151")
     .font("Helvetica-Bold")
     .text(invoice.customerName, 30, 160)
-    .font("Roboto")
+    .font("Helvetica")
     .text(`Mobile: +91 ${invoice.mobileNumber}`, 30, 175);
 
   if (invoice.address) {
@@ -147,13 +146,13 @@ module.exports = function generateInvoicePDF(invoice, res) {
     });
     currentX += colWidths.qty;
     doc.text(
-      `₹${formatCurrency(item.pricePerUnit)}`,
+      `${formatCurrency(item.pricePerUnit)}`,
       currentX + 5,
       currentY + 3,
       { width: colWidths.price - 5, align: "right" },
     );
     currentX += colWidths.price;
-    doc.text(`₹${formatCurrency(item.total)}`, currentX + 5, currentY + 3, {
+    doc.text(`${formatCurrency(item.total)}`, currentX + 5, currentY + 3, {
       width: colWidths.total - 5,
       align: "right",
     });
@@ -178,7 +177,7 @@ module.exports = function generateInvoicePDF(invoice, res) {
     .fontSize(14)
     .fillColor("#ffffff")
     .text(
-      `Grand Total: ₹${formatCurrency(invoice.grandTotal)}`,
+      `Grand Total: ${formatCurrency(invoice.grandTotal)}`,
       itemX + 355,
       totalY + 8,
       { width: 180, align: "center" },
