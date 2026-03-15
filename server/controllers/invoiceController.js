@@ -7,7 +7,7 @@ function toNumber(n) {
 
 exports.createInvoice = async (req, res) => {
   try {
-    const { invoiceNumber, date, customerName, mobileNumber, address, items } = req.body;
+    const { invoiceNumber, date, customerName, mobileNumber, address, items, isMobileInvoice, mobileDetails } = req.body;
     
     // Validate required fields
     if (!invoiceNumber?.trim()) {
@@ -62,6 +62,8 @@ exports.createInvoice = async (req, res) => {
       customerName: customerName.trim(),
       mobileNumber: mobileNumber.trim(),
       address: address?.trim() || '',
+      isMobileInvoice: !!isMobileInvoice,
+      mobileDetails: isMobileInvoice && mobileDetails ? mobileDetails : undefined,
       items: normalizedItems,
       grandTotal: Math.round(grandTotal * 100) / 100
     });
